@@ -7,4 +7,5 @@ That's the whole thing. `AUDIT.md` is a self-contained instruction set any LLM c
 ---
 
 *Who Reviews the Reviewers? — a repo-governance self-audit, by Black Box Research Labs.*
+*Sibling tool: find-your-kill-zone (https://github.com/Black-Box-Research-Labs/find-your-kill-zone). Point your agent at your repo and find your complexity × churn × security kill zone, the air-gapped breadth half of the audit.*
 *The AIV verification protocol: https://github.com/Black-Box-Research-Labs/aiv-protocol · https://blackboxresearchlabs.com*
