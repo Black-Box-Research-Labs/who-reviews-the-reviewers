@@ -36,7 +36,10 @@ You are running a **read-only governance audit** of the GitHub repository this a
 ```bash
 # Confirm auth + resolve the repo this agent is working in.
 gh auth status
-OWNER_REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+# Audit ANY repo by exporting OWNER_REPO=owner/name first; otherwise resolve
+# the repo this agent is sitting in (a clone of the target).
+OWNER_REPO="${OWNER_REPO:-$(gh repo view --json nameWithOwner -q .nameWithOwner 2>/dev/null)}"
+[ -n "$OWNER_REPO" ] || { echo "Set OWNER_REPO=owner/name (or run from inside a clone of the target repo)." >&2; exit 1; }
 TODAY=$(date -u +%Y-%m-%d)
 
 # Namespace ALL working files per repo + process so two concurrent runs (or two repos)
@@ -306,7 +309,7 @@ jq -r '
       singleBotSharePct: (if $allReviews>0 and ($byBot|length)>0 then (100*$byBot[0].count/$allReviews) else 0 end) }
 ' "$WORKDIR/merged.json"
 ```
-Report: bot-review share, and the **single-bot concentration** (the largest one bot's share of all review events). **RED if single-bot share > 50%.** Name the top bot. (If you got `topBot: null` AND `totalReviewEvents > 0`, your data source is wrong — you are almost certainly reading `gh pr list`'s stripped logins instead of `apiReviews`; re-run §1.)
+Report: bot-review share, and the **single-bot concentration** (the largest one bot's share of all review events). **RED if single-bot share > 50%.** Name the top bot. (If you got `topBot: null` AND `totalReviewEvents > 0`: this is a **valid GREEN result** — the repo simply has **no bot reviewers** — *provided* your review events came from §1's `apiReviews` (which carry the real `.type`). Sanity-check by confirming every review `.type` is `"User"`. ONLY suspect a data-source bug — and re-run §1 — if you **bypassed §1** and read `gh pr list`'s stripped logins, where bots masquerade as humans.)
 
 ---
 
