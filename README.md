@@ -6,6 +6,12 @@ That's the whole thing. `AUDIT.md` is a self-contained instruction set any LLM c
 
 ---
 
+**The talk this came from.** *Who Reviews the Reviewers? A Live Forensic Audit of an AI Agent Framework*. BSides San Antonio, 13 June 2026, 41 min: https://www.youtube.com/watch?v=pe_jo6j9GsU
+
+The talk opens on a CTO who opened a pull request adding six autonomous agents, allowed to rewrite their own source code, and merged it himself eleven seconds later with zero review. It then runs the forensic engine live on stage against a popular AI agent framework. The five questions in `AUDIT.md` are the talk's closing ask: the things a defender should be able to answer about their own repository on Monday morning.
+
+---
+
 *Who Reviews the Reviewers? — a repo-governance self-audit, by Black Box Research Labs.*
 *Sibling tool: find-your-kill-zone (https://github.com/Black-Box-Research-Labs/find-your-kill-zone). Point your agent at your repo and find your complexity × churn × security kill zone, the air-gapped breadth half of the audit.*
 *The AIV verification protocol: https://github.com/Black-Box-Research-Labs/aiv-protocol · https://blackboxresearchlabs.com*
